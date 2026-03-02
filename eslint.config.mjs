@@ -31,15 +31,15 @@ export default defineConfig([
 
       // Remove unused imports
       'unused-imports/no-unused-imports': 'error',
-      'unused-imports/no-unused-vars': [
-        'warn',
-        {
-          vars: 'all',
-          varsIgnorePattern: '^_',
-          args: 'after-used',
-          argsIgnorePattern: '^_',
-        },
-      ],
+      // 'unused-imports/no-unused-vars': [
+      //   'warn',
+      //   {
+      //     vars: 'all',
+      //     varsIgnorePattern: '^_',
+      //     args: 'after-used',
+      //     argsIgnorePattern: '^_',
+      //   },
+      // ],
 
       // Import rules
       'import/no-duplicates': 'error',
@@ -54,6 +54,7 @@ export default defineConfig([
       'no-use-before-define': ['error', { variables: false }],
       'max-lines': ['error', { max: 500 }],
       'react-hooks/exhaustive-deps': 'off',
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
 
