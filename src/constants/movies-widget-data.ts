@@ -51,3 +51,5 @@ export const sciFiFantasyMoviesListData = [
   'Alita: Battle Angel',
   'I Am Legend',
 ];
+
+export const allMoviesData = [...topRatedMoviesListData, ...sciFiFantasyMoviesListData];
