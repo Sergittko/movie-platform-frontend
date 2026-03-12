@@ -3,6 +3,8 @@ export enum AppRoutePathEnum {
   SEARCH = '/search',
   MATCH = '/charts',
   PROFILE = '/profile',
+  LOGIN = '/login',
+  REGISTER = '/register',
 }
 
 export interface IAppRoute {
