@@ -9,8 +9,8 @@ const TopBar = () => {
   const pathname = usePathname();
 
   return (
-    <header className="fixed top-0 z-50 w-screen">
-      <div className="mx-6 mt-4 flex h-16 items-center justify-between rounded-[40px] border border-white/10 bg-white/10 px-6 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-xl supports-backdrop-filter:bg-white/10">
+    <header className="fixed top-0 z-50 max-w-full min-w-full px-6">
+      <div className="mx-auto mt-4 flex h-16 w-full max-w-6xl items-center justify-between rounded-[40px] border border-white/10 bg-white/10 px-6 shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-xl supports-backdrop-filter:bg-white/10">
         {/* Left */}
         <div className="flex items-center gap-2">
           <Film className="h-5 w-5 text-white" />
