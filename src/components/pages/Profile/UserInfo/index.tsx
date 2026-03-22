@@ -1,4 +1,4 @@
-import { LogOut, Star, User } from 'lucide-react';
+import { Crown, LogOut, User } from 'lucide-react';
 
 import ColContainer from '@/components/basic/layouts/ColContainer';
 import { Button } from '@/components/ui/button';
@@ -24,7 +24,7 @@ const UserInfo = () => {
             variant="outline"
           >
             <p>Get premium</p>
-            <Star className="relative top-px" />
+            <Crown className="relative top-px" />
           </Button>
 
           <Button
