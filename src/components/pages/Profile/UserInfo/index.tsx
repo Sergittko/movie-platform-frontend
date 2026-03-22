@@ -28,6 +28,13 @@ const UserInfo = () => {
           </Button>
 
           <Button
+            className="flex w-full items-center justify-center gap-1 rounded-4xl hover:bg-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+            variant="outline"
+          >
+            <p>See match list</p>
+          </Button>
+
+          <Button
             className="mt-auto flex w-full items-center justify-between rounded-4xl"
             variant="outline"
           >
