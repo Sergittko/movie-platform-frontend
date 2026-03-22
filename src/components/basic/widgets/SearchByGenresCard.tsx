@@ -10,12 +10,12 @@ const SearchByGenresCard = () => {
         Search by genres
       </CardTitle>
 
-      <div className="flex w-full items-center gap-4 overflow-x-auto px-4 pt-4 pb-2">
+      <div className="flex w-full flex-wrap items-center justify-center gap-2 px-2 pt-4 pb-2">
         {genresData.map(({ name, slug, icon: Icon }) => (
           <Link key={slug} href={`/search?genre=${slug}`} className="group">
-            <div className="flex min-w-22 flex-col items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/2 px-3 py-3 backdrop-blur-sm transition-all duration-300 ease-out hover:scale-[1.03] hover:border-white/20 hover:bg-white/6 hover:shadow-[0_0_10px_rgba(255,255,255,0.06)] active:scale-[0.98]">
-              <Icon className="h-5 w-5 text-white/60 transition-all group-hover:scale-103 group-hover:text-white" />
-              <span className="text-sm font-medium text-white/60 transition-colors group-hover:text-white">
+            <div className="flex w-fit min-w-22 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/2 px-8 py-1.5 backdrop-blur-sm transition-all duration-300 ease-out hover:scale-[1.03] hover:border-white/20 hover:bg-white/6 hover:shadow-[0_0_10px_rgba(255,255,255,0.06)] active:scale-[0.98]">
+              <Icon className="h-5 min-h-5 w-5 min-w-5 text-white/60 transition-all group-hover:scale-103 group-hover:text-white" />
+              <span className="min-w-fit text-base font-medium text-white/60 transition-colors group-hover:text-white">
                 {name}
               </span>
             </div>

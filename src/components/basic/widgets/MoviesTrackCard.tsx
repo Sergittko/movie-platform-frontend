@@ -12,7 +12,7 @@ interface IMoviesTrackCardProps {
 
 const MoviesTrackCard: FC<IMoviesTrackCardProps> = ({ title, moviesList }) => {
   return (
-    <Card className="gap-1.5 overflow-hidden pb-5">
+    <Card className="gap-1.5 overflow-hidden pb-3">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <p>{title}</p>
@@ -26,7 +26,7 @@ const MoviesTrackCard: FC<IMoviesTrackCardProps> = ({ title, moviesList }) => {
         </CardTitle>
       </CardHeader>
 
-      <div className="flex items-center gap-4 overflow-auto px-6 pt-2 pb-1">
+      <div className="no-scroll-arrows scrollbar-hide flex items-center gap-4 overflow-auto px-6 pt-2 pb-3">
         {moviesList.map((item, index) => (
           <MovieCard key={item + index} name={item} />
         ))}
