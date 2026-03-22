@@ -2,6 +2,8 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
+@tailwind utilities;
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -172,5 +174,12 @@ body {
   * {
     scrollbar-width: thin;
     scrollbar-color: rgba(120, 120, 120, 0.4) transparent;
+  }
+}
+
+
+@layer utilities {
+  .no-scroll-arrows::-webkit-scrollbar-button {
+    display: none;
   }
 }
