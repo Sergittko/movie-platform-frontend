@@ -6,8 +6,8 @@ interface IPageContainerProps {
 
 const PageContainer: FC<IPageContainerProps> = ({ children }) => {
   return (
-    <div className="w-full pt-20 min-h-screen relative">
-      <div className="p-6">{children}</div>
+    <div className="relative flex min-h-screen w-full p-6">
+      <div className="mx-auto w-full max-w-6xl flex-1 pt-20">{children}</div>
     </div>
   );
 };

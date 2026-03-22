@@ -194,8 +194,10 @@ function CarouselNext({
   className,
   variant = 'outline',
   size = 'icon',
+  buttonText,
+  onPress,
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Button> & { buttonText?: string; onPress?: () => void }) {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (
@@ -211,10 +213,13 @@ function CarouselNext({
         className,
       )}
       disabled={!canScrollNext}
-      onClick={scrollNext}
+      onClick={() => {
+        scrollNext();
+        onPress?.();
+      }}
       {...props}
     >
-      <ArrowRight />
+      {buttonText ? <p>{buttonText}</p> : <ArrowRight />}
       <span className="sr-only">Next slide</span>
     </Button>
   );

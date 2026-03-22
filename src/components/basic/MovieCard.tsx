@@ -6,7 +6,8 @@ import { cn } from '@/lib/utils';
 
 interface IMovieCardProps {
   name: string;
-  size?: 'sm' | 'basic';
+  size?: 'sm' | 'basic' | 'xl';
+  isDisabledAnimation?: boolean;
 }
 
 type SizeStylesObjType = {
@@ -15,7 +16,7 @@ type SizeStylesObjType = {
   nameText: string;
 };
 
-const MovieCard: FC<IMovieCardProps> = ({ name, size = 'basic' }) => {
+const MovieCard: FC<IMovieCardProps> = ({ name, size = 'basic', isDisabledAnimation }) => {
   const smSizeStyle: SizeStylesObjType = {
     container: 'h-42 max-w-28 min-w-28 rounded-[8px]',
     nameChar: 'text-5xl',
@@ -26,13 +27,20 @@ const MovieCard: FC<IMovieCardProps> = ({ name, size = 'basic' }) => {
     nameChar: 'text-7xl',
     nameText: 'text-sm bottom-3 left-3',
   };
+  const xlSizeStyle: SizeStylesObjType = {
+    container: 'h-80 max-w-60 min-w-42 rounded-[12px] w-full',
+    nameChar: 'text-9xl',
+    nameText: 'text-md bottom-4 left-4',
+  };
 
-  const { container, nameChar, nameText } = size === 'sm' ? smSizeStyle : basicSizeStyle;
+  const { container, nameChar, nameText } =
+    size === 'sm' ? smSizeStyle : size === 'xl' ? xlSizeStyle : basicSizeStyle;
 
   return (
     <div
       className={cn(
-        'relative flex cursor-pointer flex-col gap-1 overflow-hidden border border-white/10 bg-gray-950 p-0 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-white/20 hover:shadow-lg',
+        'relative flex cursor-pointer flex-col gap-1 overflow-hidden border border-white/10 bg-gray-950 p-0 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:shadow-lg',
+        !isDisabledAnimation && 'hover:-translate-y-2',
         container,
       )}
     >

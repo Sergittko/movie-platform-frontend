@@ -26,7 +26,7 @@ const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList }) => {
   }, [api]);
 
   return (
-    <Card className="relative -left-6 rounded-none border-l-0 border-r-0 p-0 w-[calc(100%+48px)]">
+    <Card className="relative w-full overflow-hidden p-0">
       <Carousel
         setApi={setApi}
         plugins={[
@@ -42,10 +42,10 @@ const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList }) => {
         <CarouselContent>
           {moviesList.map((movie) => (
             <CarouselItem key={movie} className="p-0">
-              <div className="h-90 relative">
-                <div className="h-full w-full bg-linear-to-br from-red-900 via-30% via-pink-950 to-gray-950" />
-                <div className="absolute bottom-0 left-0 h-1/3 bg-linear-to-b from-transparent to-black/40 w-full z-0" />
-                <p className="absolute left-16 bottom-6 font-semibold text-white/60 text-xl ">
+              <div className="relative h-90">
+                <div className="h-full w-full bg-linear-to-br from-red-900 via-pink-950 via-30% to-gray-950" />
+                <div className="absolute bottom-0 left-0 z-0 h-1/3 w-full bg-linear-to-b from-transparent to-black/40" />
+                <p className="absolute bottom-6 left-16 text-xl font-semibold text-white/60">
                   {movie}
                 </p>
               </div>
@@ -54,20 +54,17 @@ const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList }) => {
         </CarouselContent>
       </Carousel>
 
-      <p className="absolute top-7.5 left-12 flex gap-2 font-semibold text-white text-xl">
+      <p className="absolute top-7.5 left-12 flex gap-2 text-xl font-semibold text-white">
         Upcoming movies
       </p>
-      <div className="absolute top-0 left-0 h-1/3 bg-linear-to-b from-black/40 to-transparent w-full z-0" />
+      <div className="absolute top-0 left-0 z-0 h-1/3 w-full bg-linear-to-b from-black/40 to-transparent" />
 
-      <div className="absolute bottom-7.5 right-12 flex gap-2">
+      <div className="absolute right-12 bottom-7.5 flex gap-2">
         {moviesList.map((movie, index) => (
           <button
             key={movie + '_dot'}
             onClick={() => api?.scrollTo(index)}
-            className={`
-              w-3 h-3 rounded-full transition-colors
-              ${current === index ? 'bg-white/60' : 'bg-white/20 hover:bg-white/40'}
-            `}
+            className={`h-3 w-3 rounded-full transition-colors ${current === index ? 'bg-white/60' : 'bg-white/20 hover:bg-white/40'} `}
           />
         ))}
       </div>

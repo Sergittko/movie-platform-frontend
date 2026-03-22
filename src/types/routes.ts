@@ -1,7 +1,7 @@
 export enum AppRoutePathEnum {
   HOME = '/',
   SEARCH = '/search',
-  MATCH = '/charts',
+  MATCH = '/match',
   PROFILE = '/profile',
   LOGIN = '/login',
   REGISTER = '/register',
