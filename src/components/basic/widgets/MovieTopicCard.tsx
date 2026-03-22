@@ -17,7 +17,7 @@ const MovieTopicCard: FC<IMovieTopicCardProps> = ({ data: { title, image, link }
 
   return (
     <Card
-      className="group relative overflow-hidden p-0 cursor-pointer rounded-2xl w-full h-52"
+      className="group relative h-52 w-full cursor-pointer overflow-hidden rounded-2xl p-0"
       onClick={() => router.push(link)}
     >
       <Image
@@ -29,7 +29,7 @@ const MovieTopicCard: FC<IMovieTopicCardProps> = ({ data: { title, image, link }
 
       <div className="absolute inset-0 bg-black/70 transition-colors duration-300 group-hover:bg-black/80" />
 
-      <CardTitle className="absolute inset-0 z-10 flex items-center justify-center text-center text-3xl md:text-4xl font-semibold tracking-tight text-white/80 transition-colors duration-300 group-hover:text-white drop-shadow-lg px-6">
+      <CardTitle className="absolute inset-0 z-10 flex items-center justify-center px-6 text-center text-3xl font-semibold tracking-tight text-white/80 drop-shadow-lg transition-colors duration-300 group-hover:text-white md:text-4xl">
         {title}
       </CardTitle>
     </Card>
