@@ -1,6 +1,7 @@
 'use client';
 
 import PageContainer from '@/components/basic/layouts/PageContainer';
+import Footer from '@/components/layout/Footer';
 import TopBar from '@/components/layout/TopBar';
 
 const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
@@ -11,6 +12,7 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       <div>
         <TopBar />
         <PageContainer>{children}</PageContainer>
+        <Footer />
       </div>
     </>
   );
