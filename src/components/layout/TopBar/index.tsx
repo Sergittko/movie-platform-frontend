@@ -5,6 +5,8 @@ import { usePathname } from 'next/navigation';
 import { topBarRoutes } from '@/constants/routes';
 import { AppRoutePathEnum } from '@/types/routes';
 
+import MobileSidebar from '../MobileSideBar';
+
 const TopBar = () => {
   const pathname = usePathname();
 
@@ -26,7 +28,7 @@ const TopBar = () => {
         </div>
 
         {/* Center */}
-        <nav className="hidden items-center gap-2 text-sm md:flex">
+        <nav className="hidden items-center gap-2 text-sm sm:flex">
           {topBarRoutes.map(({ name, path }) => (
             <Link
               key={name + path}
@@ -43,7 +45,8 @@ const TopBar = () => {
         </nav>
 
         {/* Right */}
-        <div className="flex w-full max-w-34 items-center justify-end gap-4 text-white/60">
+        <MobileSidebar />
+        <div className="hidden w-full max-w-34 items-center justify-end gap-4 text-white/60 sm:flex">
           <Link
             href={AppRoutePathEnum.PROFILE}
             className="rounded-full border border-white/10 p-2.5 transition-colors hover:bg-white/10"

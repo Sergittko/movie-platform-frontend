@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 export enum AppRoutePathEnum {
   HOME = '/',
   SEARCH = '/search',
@@ -10,4 +12,5 @@ export enum AppRoutePathEnum {
 export interface IAppRoute {
   name: string;
   path: AppRoutePathEnum;
+  icon?: FC<React.SVGProps<SVGSVGElement>>;
 }
