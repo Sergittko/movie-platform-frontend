@@ -1,14 +1,20 @@
+'use client';
+
 import { Film, User } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { topBarRoutes } from '@/constants/routes';
+import { useAppSelector } from '@/redux/hooks';
+import userSelectors from '@/redux/user/userSelectors';
 import { AppRoutePathEnum } from '@/types/routes';
 
 import MobileSidebar from '../MobileSideBar';
 
 const TopBar = () => {
   const pathname = usePathname();
+  const { avatar } = useAppSelector(userSelectors.getUserData);
 
   const isActive = (pathname: string, path: AppRoutePathEnum) => {
     if (path === AppRoutePathEnum.HOME) {
@@ -49,9 +55,19 @@ const TopBar = () => {
         <div className="hidden w-full max-w-34 items-center justify-end gap-4 text-white/60 sm:flex">
           <Link
             href={AppRoutePathEnum.PROFILE}
-            className="rounded-full border border-white/10 p-2.5 transition-colors hover:bg-white/10"
+            className="flex size-9.5 items-center justify-center overflow-hidden rounded-full border border-white/10 transition-colors hover:bg-white/10"
           >
-            <User className="h-4 w-4 cursor-pointer transition-colors hover:text-white" />
+            {avatar ? (
+              <Image
+                src={avatar || ''}
+                alt="avatar"
+                width={50}
+                height={50}
+                className="size-full object-cover"
+              />
+            ) : (
+              <User className="h-4 w-4 cursor-pointer transition-colors hover:text-white" />
+            )}
           </Link>
         </div>
       </div>

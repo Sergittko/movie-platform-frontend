@@ -47,6 +47,7 @@ export default defineConfig([
 
       // TypeScript
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'off',
 
       // Custom rules
       'no-console': 'warn',
