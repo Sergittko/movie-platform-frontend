@@ -1,7 +1,10 @@
-import './globals.css';
+import '@/styles/globals.css';
 
 import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
+
+import { Toaster } from '@/components/ui/sonner';
+import { TanstackProvider } from '@/providers/TanstackProvider';
 
 export const metadata: Metadata = {
   title: 'Movies Portal',
@@ -21,7 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={figtree.variable} suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <TanstackProvider>
+          {children}
+
+          <Toaster />
+        </TanstackProvider>
+      </body>
     </html>
   );
 }
