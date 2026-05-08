@@ -21,6 +21,6 @@ export interface IResponsePagination<T> {
 }
 
 export interface IPaginationData {
-  limit: number;
-  page: number;
+  limit?: number;
+  page?: number;
 }

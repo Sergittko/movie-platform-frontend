@@ -1,14 +1,18 @@
 'use client';
 
+import dayjs from 'dayjs';
 import Autoplay from 'embla-carousel-autoplay';
+import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { getTmdbImage } from '@/helpers/getTmdbImage';
+import { IMovie, MovieBackdropImageSizeEnum } from '@/types/movies';
 
 import { Card } from '../../ui/card';
 
 interface MoviesBigBannerProps {
-  moviesList: string[];
+  moviesList: IMovie[];
 }
 
 const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList }) => {
@@ -40,14 +44,26 @@ const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList }) => {
         }}
       >
         <CarouselContent>
-          {moviesList.map((movie) => (
-            <CarouselItem key={movie} className="p-0">
+          {moviesList.slice(0, 8).map(({ title, id, backdrop_path, release_date }, index) => (
+            <CarouselItem key={id + title + index} className="p-0">
               <div className="relative h-90">
-                <div className="h-full w-full bg-linear-to-br from-red-900 via-pink-950 via-30% to-gray-950" />
-                <div className="absolute bottom-0 left-0 z-0 h-1/3 w-full bg-linear-to-b from-transparent to-black/40" />
-                <p className="absolute bottom-6 left-16 text-xl font-semibold text-white/60">
-                  {movie}
+                {/* <div className="z-10 h-full w-full bg-linear-to-br from-red-900 via-pink-950 via-30% to-gray-950" /> */}
+                <div className="absolute bottom-0 left-0 z-2 h-1/3 w-full bg-linear-to-b from-transparent to-black/80" />
+                <div className="absolute top-0 left-0 z-2 h-1/3 w-full bg-linear-to-t from-transparent to-black/80" />
+                <p className="absolute bottom-6 left-16 z-3 flex items-center text-xl font-semibold text-white/60">
+                  {title}
+                  <span className="px-2 text-4xl leading-2.5">·</span>
+                  <span className="text-base">{dayjs(release_date).format('DD mM YYYY')}</span>
                 </p>
+
+                <Image
+                  src={getTmdbImage(backdrop_path || '', MovieBackdropImageSizeEnum.W1280)}
+                  alt="Backdrop"
+                  width={2000}
+                  height={2000}
+                  loading="lazy"
+                  className="absolute top-0 left-0 z-1 h-full w-full object-cover"
+                />
               </div>
             </CarouselItem>
           ))}
@@ -60,9 +76,9 @@ const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList }) => {
       <div className="absolute top-0 left-0 z-0 h-1/3 w-full bg-linear-to-b from-black/40 to-transparent" />
 
       <div className="absolute right-12 bottom-7.5 flex gap-2">
-        {moviesList.map((movie, index) => (
+        {moviesList.slice(0, 8).map((movie, index) => (
           <button
-            key={movie + '_dot'}
+            key={index + movie.id + '_dot'}
             onClick={() => api?.scrollTo(index)}
             className={`h-3 w-3 rounded-full transition-colors ${current === index ? 'bg-white/60' : 'bg-white/20 hover:bg-white/40'} `}
           />
