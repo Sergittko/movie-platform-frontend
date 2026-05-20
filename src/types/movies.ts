@@ -15,6 +15,15 @@ export interface IMovie {
   vote_count: number;
 }
 
+export interface ISavedUserMovie {
+  createdAt: string;
+  id: string;
+  image: string;
+  movieId: string;
+  profileId: string;
+  title: string;
+}
+
 export interface IGenre {
   id: number;
   name: string;

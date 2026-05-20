@@ -10,12 +10,14 @@ import { getTmdbImage } from '@/helpers/getTmdbImage';
 import { IMovie, MovieBackdropImageSizeEnum } from '@/types/movies';
 
 import { Card } from '../../ui/card';
+import SeeMoreButton from '../SeeMore';
 
 interface MoviesBigBannerProps {
   moviesList: IMovie[];
+  seeMoreLink?: string;
 }
 
-const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList }) => {
+const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList, seeMoreLink }) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState<number>(0);
 
@@ -73,6 +75,13 @@ const MoviesBigBanner: FC<MoviesBigBannerProps> = ({ moviesList }) => {
       <p className="absolute top-7.5 left-12 flex gap-2 text-xl font-semibold text-white">
         Upcoming movies
       </p>
+
+      {!!seeMoreLink && (
+        <div className="absolute top-7.5 right-12 z-10">
+          <SeeMoreButton seeMoreLink={seeMoreLink} />
+        </div>
+      )}
+
       <div className="absolute top-0 left-0 z-0 h-1/3 w-full bg-linear-to-b from-black/40 to-transparent" />
 
       <div className="absolute right-12 bottom-7.5 flex gap-2">

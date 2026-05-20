@@ -9,6 +9,7 @@ import MoviesTrackCard from '@/components/basic/widgets/MoviesTrackCard';
 import MovieTopicCard from '@/components/basic/widgets/MovieTopicCard';
 import SearchByGenresCard from '@/components/basic/widgets/SearchByGenresCard';
 import { movieTopicsData } from '@/constants/movie-topic';
+import { AppRoutePathEnum } from '@/types/routes';
 
 const HomePage = () => {
   const { data: topRatedList = [] } = useGetMoviesList({
@@ -25,12 +26,20 @@ const HomePage = () => {
 
   return (
     <ColContainer>
-      <MoviesBigBanner moviesList={upcomingList} />
+      <MoviesBigBanner moviesList={upcomingList} seeMoreLink={AppRoutePathEnum.UPCOMING_LIST} />
       <SearchByGenresCard />
 
       <RowContainer>
-        <MoviesTrackCard title="Top rated" moviesList={topRatedList} />
-        <MoviesTrackCard title="Watching now" moviesList={popilarList} />
+        <MoviesTrackCard
+          title="Top rated"
+          moviesList={topRatedList}
+          seeMoreLink={AppRoutePathEnum.TOP_RATED_LIST}
+        />
+        <MoviesTrackCard
+          title="Watching now"
+          moviesList={popilarList}
+          seeMoreLink={AppRoutePathEnum.POPULAR_LIST}
+        />
       </RowContainer>
 
       <RowContainer>

@@ -1,11 +1,13 @@
 import type { NextConfig } from 'next';
 
+import environment from '@/config';
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.NEXT_PUBLIC_SUPABASE_HOST || '',
+        hostname: environment.SUPABASE_HOST,
       },
       {
         protocol: 'https',

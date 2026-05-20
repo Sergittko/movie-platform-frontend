@@ -1,3 +1,4 @@
+import environment from '@/config';
 import { MovieBackdropImageSizeEnum, MoviePosterImageSizeEnum } from '@/types/movies';
 
 export const getTmdbImage = (
@@ -6,5 +7,5 @@ export const getTmdbImage = (
 ) => {
   if (!path) return '';
 
-  return `${process.env.NEXT_PUBLIC_TMDB_IMAGE_URL}/${size}${path}`;
+  return `${environment.TMDB_IMAGE_URL}/${size}${path}`;
 };

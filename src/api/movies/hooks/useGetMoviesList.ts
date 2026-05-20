@@ -16,6 +16,6 @@ export const useGetMoviesList = ({ listType, page = 1 }: IGetMoviesListProps) =>
         listType,
         page,
       }),
-    select: (res) => res.data.results,
+    select: (res) => res.data.data.movies,
   });
 };

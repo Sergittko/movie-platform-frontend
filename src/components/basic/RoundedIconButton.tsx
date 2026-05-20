@@ -4,12 +4,16 @@ import { cn } from '@/lib/utils';
 
 interface IRoundedIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: FC<React.SVGProps<SVGSVGElement>>;
+  iconClassName?: string;
+  onClick: () => void;
 }
 
 export const RoundedIconButton: FC<IRoundedIconButtonProps> = ({
   icon: Icon,
   className,
+  iconClassName = '',
   disabled,
+  onClick,
   ...props
 }) => {
   return (
@@ -21,6 +25,8 @@ export const RoundedIconButton: FC<IRoundedIconButtonProps> = ({
         className,
       )}
       disabled={disabled}
+      type="button"
+      onClick={onClick}
       {...props}
     >
       <Icon
@@ -28,6 +34,7 @@ export const RoundedIconButton: FC<IRoundedIconButtonProps> = ({
           'h-5 w-5 text-white/60 transition-colors duration-300',
           !disabled && 'group-hover:text-white',
           disabled && 'text-white/30',
+          iconClassName && iconClassName,
         )}
       />
     </button>

@@ -1,4 +1,4 @@
-import { IPaginationData } from '@/types/http';
+import { IPaginationData, IResponsePagination } from '@/types/http';
 import { IGenre, IMovie } from '@/types/movies';
 import { SortByEnum } from '@/types/movies-filters';
 
@@ -17,12 +17,10 @@ export enum MoviesListTypeEnum {
   UPCOMING = 'upcoming',
 }
 
-export interface IGetMoviesListResponse {
-  results: IMovie[];
-  page: number;
-  totalPages: number;
-  totalResults: number;
-}
+export interface IGetMoviesListResponse extends IResponsePagination<{
+  movies: IMovie[];
+  // eslint-disable-next-line prettier/prettier
+}> {}
 
 export interface IGetMoviesSearchData extends IPaginationData {
   sortBy?: SortByEnum;
