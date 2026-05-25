@@ -1,10 +1,8 @@
-import Link from 'next/link';
-
 import { useGetMoviesGenres } from '@/api/movies/hooks/useGetMoviesGenres';
 import { Card, CardTitle } from '@/components/ui/card';
-import { genresIcons } from '@/constants/genres';
 
 import { Loader } from '../Loader';
+import GenreButton from './GenreButton';
 
 const SearchByGenresCard = () => {
   const { data: genres, isLoading } = useGetMoviesGenres();
@@ -18,20 +16,7 @@ const SearchByGenresCard = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          genres?.map(({ name, id }) => {
-            const Icon = genresIcons[id] || genresIcons[0];
-
-            return (
-              <Link key={id} href={`/search?genre=${id}`} className="group">
-                <div className="flex w-fit min-w-22 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/2 px-8 py-1.5 backdrop-blur-sm transition-all duration-300 ease-out hover:scale-[1.03] hover:border-white/20 hover:bg-white/6 hover:shadow-[0_0_10px_rgba(255,255,255,0.06)] active:scale-[0.98]">
-                  <Icon className="h-5 min-h-5 w-5 min-w-5 text-white/60 transition-all group-hover:scale-103 group-hover:text-white" />
-                  <span className="min-w-fit text-base font-medium text-white/60 transition-colors group-hover:text-white">
-                    {name}
-                  </span>
-                </div>
-              </Link>
-            );
-          })
+          genres?.map((genre) => <GenreButton key={genre.id} genre={genre} />)
         )}
       </div>
     </Card>

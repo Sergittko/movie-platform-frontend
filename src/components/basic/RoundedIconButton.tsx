@@ -1,11 +1,12 @@
-import { ButtonHTMLAttributes, FC } from 'react';
+import React, { ButtonHTMLAttributes, FC } from 'react';
 
 import { cn } from '@/lib/utils';
 
 interface IRoundedIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: FC<React.SVGProps<SVGSVGElement>>;
   iconClassName?: string;
-  onClick: () => void;
+  onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  children?: React.ReactNode;
 }
 
 export const RoundedIconButton: FC<IRoundedIconButtonProps> = ({
@@ -14,6 +15,7 @@ export const RoundedIconButton: FC<IRoundedIconButtonProps> = ({
   iconClassName = '',
   disabled,
   onClick,
+  children,
   ...props
 }) => {
   return (
@@ -37,6 +39,7 @@ export const RoundedIconButton: FC<IRoundedIconButtonProps> = ({
           iconClassName && iconClassName,
         )}
       />
+      {!!children && children}
     </button>
   );
 };

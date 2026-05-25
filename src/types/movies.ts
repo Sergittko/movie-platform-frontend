@@ -15,6 +15,30 @@ export interface IMovie {
   vote_count: number;
 }
 
+export interface IMovieById extends IMovie {
+  tagline: string;
+  status: string;
+  budget: number;
+  revenue: number;
+  runtime: number;
+  imdb_id: string;
+  genres: IGenre[];
+  production_companies: IProductionCompanies[];
+  production_countries: IProductionCountries[];
+  videos: { results: { key: string }[] };
+  credits: {
+    cast: ICast[];
+  };
+  recommendations: {
+    results: IRecommendations[];
+  };
+  images: {
+    backdrops: { file_path: string }[];
+    posters: { file_path: string }[];
+    logos: { file_path: string }[];
+  };
+}
+
 export interface ISavedUserMovie {
   createdAt: string;
   id: string;
@@ -27,6 +51,27 @@ export interface ISavedUserMovie {
 export interface IGenre {
   id: number;
   name: string;
+}
+
+export interface IProductionCompanies {
+  logo_path: string;
+  name: string;
+}
+
+export interface IProductionCountries {
+  name: string;
+}
+
+export interface ICast {
+  profile_path: string;
+  character: string;
+  name: string;
+}
+
+export interface IRecommendations {
+  poster_path: string;
+  title: string;
+  id: string;
 }
 
 export enum MoviePosterImageSizeEnum {

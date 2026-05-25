@@ -1,5 +1,5 @@
 import { IPaginationData, IResponsePagination } from '@/types/http';
-import { IGenre, IMovie } from '@/types/movies';
+import { IGenre, IMovie, IMovieById } from '@/types/movies';
 import { SortByEnum } from '@/types/movies-filters';
 
 export interface IGetMoviesGenresResponse {
@@ -49,4 +49,8 @@ export interface IGetMoviesByNameSearchResponse {
   page: number;
   totalPages: number;
   totalResults: number;
+}
+
+export interface IGetMovieByIdResponse {
+  movie: IMovieById;
 }

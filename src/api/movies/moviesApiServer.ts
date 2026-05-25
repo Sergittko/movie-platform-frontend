@@ -1,3 +1,4 @@
+import environment from '@/config';
 import { fetchMoviesList } from '@/helpers/fetchMoviesList';
 
 import { IGetMoviesListData } from './moviesTypes';
@@ -14,5 +15,13 @@ export const moviesApiServer = {
       endpoint: `movies/list`,
       params,
     });
+  },
+
+  async getMovieById(id: number) {
+    const res = await fetch(`${environment.BASE_URL}/movies/${id}`, {
+      cache: 'no-store',
+    });
+
+    return res.json();
   },
 };

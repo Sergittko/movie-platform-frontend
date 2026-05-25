@@ -1,17 +1,13 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Bookmark, BookmarkCheck, Check, Plus } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
-import { usersApi } from '@/api/users/usersApi';
 import { getTmdbImage } from '@/helpers/getTmdbImage';
-import { successToast } from '@/helpers/toastActions';
+import { useMovieLists } from '@/hooks/useMovieLists';
 import { cn } from '@/lib/utils';
-import { useAppSelector, useAuth } from '@/redux/hooks';
-import userSelectors from '@/redux/user/userSelectors';
 import { IMovie, ISavedUserMovie } from '@/types/movies';
 import { AppRoutePathEnum } from '@/types/routes';
 
@@ -66,152 +62,28 @@ const MovieCard: FC<IMovieCardProps> = ({
   savedData,
 }) => {
   const router = useRouter();
-  const isAuth = useAuth();
-  const queryClient = useQueryClient();
-  const userId = useAppSelector(userSelectors.getUserId);
 
   const moiveId = savedData?.movieId || data?.id || '';
   const moiveTitle = savedData?.title || data?.title;
   const moiveImg = savedData?.image || data?.poster_path;
 
-  const [isInWatched, setInWatched] = useState<boolean>(false);
-  const [isInWatchlist, setInWatchlist] = useState<boolean>(false);
+  const { isInWatchlist, isInWatched, toggleInWatchlist, toggleInWatched, isLoading } =
+    useMovieLists({
+      movieId: moiveId,
+      movieTitle: moiveTitle,
+      movieImage: moiveImg,
+    });
 
   const { container, nameChar, nameText, imgW, imgH } =
     size === 'sm' ? smSizeStyle : size === 'xl' ? xlSizeStyle : basicSizeStyle;
 
-  const { data: watchedMovieIds, isLoading: isWatchedMovieIdsLoading } = useQuery({
-    queryKey: [`getWatchedMovieIds-${userId}`],
-    queryFn: () => usersApi.getWatchedMovieIds(userId),
-    select: (res) => res.data.data,
-    enabled: !!userId,
-    retry: 3,
-  });
-
-  const { data: watchlistMovieIds, isLoading: isWatchlistMovieIdsLoading } = useQuery({
-    queryKey: [`getWatchlistMovieIds-${userId}`],
-    queryFn: () => usersApi.getWatchlistMovieIds(userId),
-    select: (res) => res.data.data,
-    enabled: !!userId,
-    retry: 3,
-  });
-
-  const { mutate: addToWatchlistRequest, isPending: isAddingToWatchlist } = useMutation({
-    mutationKey: ['addToWatchlist' + moiveId],
-    mutationFn: () =>
-      usersApi.addToWatchlist({
-        userId,
-        movieData: {
-          movieId: moiveId.toString(),
-          image: moiveImg || '',
-          title: moiveTitle || '',
-        },
-      }),
-    onSuccess: () => {
-      setInWatchlist(true);
-      successToast(moiveTitle + ' added to watchlist');
-    },
-  });
-
-  const { mutate: deleteWatchlistRequest, isPending: isDeletingFromWatchlist } = useMutation({
-    mutationKey: ['deleteWatchlistMovie' + moiveId],
-    mutationFn: () =>
-      usersApi.deleteWatchlistMovie({
-        userId,
-        movieId: moiveId.toString(),
-      }),
-    onSuccess: () => {
-      setInWatchlist(false);
-      successToast(moiveTitle + ' removed from watchlist');
-      queryClient.invalidateQueries({
-        queryKey: [`getWatchlist-${userId}`],
-      });
-    },
-  });
-
-  const { mutate: addToWatchedRequest, isPending: isAddingToWatched } = useMutation({
-    mutationKey: ['addToWatched' + moiveId],
-    mutationFn: () =>
-      usersApi.addToWatched({
-        userId,
-        movieData: {
-          movieId: moiveId.toString(),
-          image: moiveImg || '',
-          title: moiveTitle || '',
-        },
-      }),
-    onSuccess: () => {
-      setInWatched(true);
-      successToast(moiveTitle + ' added to seen movies');
-    },
-  });
-
-  const { mutate: deleteWatchedRequest, isPending: isDeletingFromWatched } = useMutation({
-    mutationKey: ['deleteWatchedMovie' + moiveId],
-    mutationFn: () =>
-      usersApi.deleteWatchedMovie({
-        userId,
-        movieId: moiveId.toString(),
-      }),
-    onSuccess: () => {
-      setInWatched(false);
-      successToast(moiveTitle + ' removed from seen movies');
-      queryClient.invalidateQueries({
-        queryKey: [`getWatchedMovies-${userId}`],
-      });
-    },
-  });
-
-  const isLoading =
-    isWatchedMovieIdsLoading ||
-    isWatchlistMovieIdsLoading ||
-    isAddingToWatchlist ||
-    isAddingToWatched ||
-    isDeletingFromWatchlist ||
-    isDeletingFromWatched;
-
-  const toggleInWatchlist = () => {
-    if (!isAuth) {
-      router.push(AppRoutePathEnum.LOGIN);
-      return;
-    }
-
-    if (isInWatchlist) {
-      deleteWatchlistRequest();
-    } else {
-      addToWatchlistRequest();
-    }
+  const handleRedirectToMoviePage = () => {
+    router.push(`${AppRoutePathEnum.MOVIE_BY_ID}/${moiveId}`);
   };
-
-  const toggleInWatched = () => {
-    if (!isAuth) {
-      router.push(AppRoutePathEnum.LOGIN);
-      return;
-    }
-
-    if (isInWatched) {
-      deleteWatchedRequest();
-    } else {
-      addToWatchedRequest();
-    }
-  };
-
-  useEffect(() => {
-    if (watchlistMovieIds?.movieIds) {
-      const isIncludesWatchlist = watchlistMovieIds?.movieIds.includes(moiveId.toString() || '');
-      setInWatchlist(!!isIncludesWatchlist);
-    }
-  }, [watchlistMovieIds]);
-
-  useEffect(() => {
-    if (watchedMovieIds?.movieIds) {
-      const isIncludesWatched = watchedMovieIds?.movieIds.includes(moiveId.toString() || '');
-      setInWatched(!!isIncludesWatched);
-    }
-  }, [watchedMovieIds]);
 
   return (
     <div
+      onClick={handleRedirectToMoviePage}
       className={cn(
         'group relative flex cursor-pointer flex-col gap-1 overflow-hidden border border-white/10 bg-gray-950 p-0 shadow-sm backdrop-blur-xl transition-all duration-300 hover:border-white/20 hover:shadow-lg',
         !isDisabledAnimation && 'hover:-translate-y-2',
@@ -246,7 +118,10 @@ const MovieCard: FC<IMovieCardProps> = ({
           <TooltipTrigger asChild>
             <RoundedIconButton
               icon={isInWatchlist ? BookmarkCheck : Bookmark}
-              onClick={toggleInWatchlist}
+              onClick={(e) => {
+                e?.stopPropagation();
+                toggleInWatchlist();
+              }}
               className={cn(
                 'max-h-8 min-h-8 max-w-8 min-w-8 bg-black/80 hover:bg-black/60',
                 isInWatched && 'hidden',
@@ -266,7 +141,10 @@ const MovieCard: FC<IMovieCardProps> = ({
           <TooltipTrigger asChild>
             <RoundedIconButton
               icon={isInWatched ? Check : Plus}
-              onClick={toggleInWatched}
+              onClick={(e) => {
+                e?.stopPropagation();
+                toggleInWatched();
+              }}
               className={cn(
                 'max-h-8 min-h-8 max-w-8 min-w-8 bg-black/80 hover:bg-black/60',
                 isInWatchlist && 'hidden',

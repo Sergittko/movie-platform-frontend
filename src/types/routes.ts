@@ -16,6 +16,7 @@ export enum AppRoutePathEnum {
   POPULAR_LIST = `/lists/${MoviesListTypeEnum.POPULAR}`,
   TOP_RATED_LIST = `/lists/${MoviesListTypeEnum.TOP_RATED}`,
   UPCOMING_LIST = `/lists/${MoviesListTypeEnum.UPCOMING}`,
+  MOVIE_BY_ID = `/movie`,
 }
 
 export interface IAppRoute {
