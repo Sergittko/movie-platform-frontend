@@ -1,25 +1,45 @@
-import { ButtonHTMLAttributes, FC } from 'react';
+import React, { ButtonHTMLAttributes, FC } from 'react';
 
 import { cn } from '@/lib/utils';
 
 interface IRoundedIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: FC<React.SVGProps<SVGSVGElement>>;
+  iconClassName?: string;
+  onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  children?: React.ReactNode;
 }
 
 export const RoundedIconButton: FC<IRoundedIconButtonProps> = ({
   icon: Icon,
   className,
+  iconClassName = '',
+  disabled,
+  onClick,
+  children,
   ...props
 }) => {
   return (
     <button
       className={cn(
-        'flex max-h-13 min-h-13 max-w-13 min-w-13 items-center justify-center rounded-full border border-white/10 bg-white/4 transition-all duration-300 hover:border-white/20 hover:bg-white/8 active:scale-98',
+        'flex max-h-13 min-h-13 max-w-13 min-w-13 items-center justify-center rounded-full border border-white/10 bg-white/4 transition-all duration-300',
+        !disabled && 'hover:border-white/20 hover:bg-white/8 active:scale-98',
+        disabled && 'border-white/5 bg-white/2',
         className,
       )}
+      disabled={disabled}
+      type="button"
+      onClick={onClick}
       {...props}
     >
-      <Icon className="h-5 w-5 text-white/60 transition-colors duration-300 group-hover:text-white" />
+      <Icon
+        className={cn(
+          'h-5 w-5 text-white/60 transition-colors duration-300',
+          !disabled && 'group-hover:text-white',
+          disabled && 'text-white/30',
+          iconClassName && iconClassName,
+        )}
+      />
+      {!!children && children}
     </button>
   );
 };

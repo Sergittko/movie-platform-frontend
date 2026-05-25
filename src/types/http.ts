@@ -12,15 +12,13 @@ export interface ISimpleMessageResponse {
 
 export interface IResponsePagination<T> {
   data: T;
-  pagination: {
-    totalItems: number;
-    totalPages: number;
-    currentPage: number;
-    pageSize: number;
-  };
+  page: number;
+  limit: number;
+  totalResults: number;
+  totalPages: number;
 }
 
 export interface IPaginationData {
-  limit: number;
-  page: number;
+  limit?: number;
+  page?: number;
 }

@@ -1,35 +1,34 @@
-import { ArrowRightIcon } from 'lucide-react';
 import { FC } from 'react';
 
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { IMovie } from '@/types/movies';
 
 import MovieCard from '../MovieCard';
+import SeeMoreButton from '../SeeMore';
 
 interface IMoviesTrackCardProps {
   title: string;
-  moviesList: string[];
+  moviesList: string[] | IMovie[];
+  seeMoreLink?: string;
 }
 
-const MoviesTrackCard: FC<IMoviesTrackCardProps> = ({ title, moviesList }) => {
+const MoviesTrackCard: FC<IMoviesTrackCardProps> = ({ title, moviesList, seeMoreLink }) => {
   return (
     <Card className="gap-1.5 overflow-hidden pb-3">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <p>{title}</p>
 
-          <button className="group flex cursor-pointer items-center gap-1 rounded-full border border-white/10 px-2.5 py-1 transition-colors hover:bg-white/10">
-            <p className="relative -top-px text-sm text-white/60 group-hover:text-white">
-              See more
-            </p>
-            <ArrowRightIcon className="h-auto w-4 text-white/60 group-hover:text-white" />
-          </button>
+          {!!seeMoreLink && <SeeMoreButton seeMoreLink={seeMoreLink} />}
         </CardTitle>
       </CardHeader>
 
       <div className="no-scroll-arrows scrollbar-hide flex items-center gap-4 overflow-auto px-6 pt-2 pb-3">
-        {moviesList.map((item, index) => (
-          <MovieCard key={item + index} name={item} />
-        ))}
+        {moviesList.map((item, index) => {
+          const isMovie = typeof item === 'object' && item !== null && 'title' in item;
+          const name = isMovie ? item.title : item;
+          return <MovieCard key={name + index} name={name} data={isMovie ? item : undefined} />;
+        })}
       </div>
     </Card>
   );

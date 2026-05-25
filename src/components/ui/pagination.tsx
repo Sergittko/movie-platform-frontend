@@ -47,7 +47,8 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
           size,
         }),
         className,
-        'cursor-pointer',
+        'min-w-fit cursor-pointer px-2',
+        isActive && 'opacity-50',
       )}
       {...props}
     />

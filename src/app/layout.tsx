@@ -4,10 +4,11 @@ import type { Metadata } from 'next';
 import { Figtree } from 'next/font/google';
 
 import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { TanstackProvider } from '@/providers/TanstackProvider';
 
 export const metadata: Metadata = {
-  title: 'Movies Portal',
+  title: 'Movies Platform',
 };
 
 const figtree = Figtree({
@@ -26,9 +27,10 @@ export default function RootLayout({
     <html lang="en" className={figtree.variable} suppressHydrationWarning>
       <body>
         <TanstackProvider>
-          {children}
-
-          <Toaster />
+          <TooltipProvider>
+            {children}
+            <Toaster />
+          </TooltipProvider>
         </TanstackProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { BookmarkCheck, Crown, Edit, LogOut, User } from 'lucide-react';
+import { Crown, Edit, FolderDot, LogOut, User } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -92,7 +92,7 @@ const UserInfo = () => {
             variant="outline"
           >
             <div className="flex size-4 items-center justify-center">
-              <BookmarkCheck className="relative left-0.5" />
+              <FolderDot className="relative left-0.5" />
             </div>
             <p>Match list</p>
           </Button>

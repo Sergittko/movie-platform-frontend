@@ -1,18 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Slider } from '@/components/ui/slider';
-import { ratingMarks } from '@/constants/movies-filters';
+import { RATING_MAX, RATING_MIN, ratingMarks } from '@/constants/movies-filters';
 import { cn } from '@/lib/utils';
+import { useSearchFilters } from '@/providers/SearchFilersProvider';
 
 import FilterCardContainer from '../FilterCardContainer';
 
 const RatingFilter = () => {
-  const [ratingRange, setRatingRange] = useState<[number, number]>([3, 8]);
+  const {
+    filters: { ratingFrom, ratingTo },
+    setFilters,
+  } = useSearchFilters();
+
+  const [ratingRange, setRatingRange] = useState<[number, number]>([
+    ratingFrom ?? RATING_MIN,
+    ratingTo ?? RATING_MAX,
+  ]);
+
+  useEffect(() => {
+    if (!ratingFrom || !ratingTo) return;
+
+    setRatingRange([ratingFrom, ratingTo]);
+  }, []);
+
+  useEffect(() => {
+    const [from, to] = ratingRange;
+
+    setFilters((prev) => {
+      if (prev.ratingFrom === from && prev.ratingTo === to) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        ratingFrom: from,
+        ratingTo: to,
+      };
+    });
+  }, [ratingRange]);
 
   return (
-    <FilterCardContainer label="IMDB rating" containerClassName="gap-1.5">
+    <FilterCardContainer label="Rating" containerClassName="gap-1.5">
       <div className="flex justify-between text-xs text-white/70">
         {ratingMarks.map((mark) => (
           <div

@@ -11,17 +11,20 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { allMoviesData } from '@/constants/movies-widget-data';
 
 interface IMoviesPaginationProps {
-  moviesPerPage: number;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  totalPages: number;
+  isDisabled: boolean;
 }
 
-const MoviesPagination: FC<IMoviesPaginationProps> = ({ moviesPerPage, page, setPage }) => {
-  const totalPages = Math.ceil(allMoviesData.length / moviesPerPage);
-
+const MoviesPagination: FC<IMoviesPaginationProps> = ({
+  page,
+  setPage,
+  totalPages,
+  isDisabled,
+}) => {
   const renderPages = () => {
     const pages = [];
 
@@ -34,7 +37,7 @@ const MoviesPagination: FC<IMoviesPaginationProps> = ({ moviesPerPage, page, set
         pages.push(
           <PaginationItem key={i}>
             <PaginationLink
-              isActive={i === page}
+              isActive={i === page || isDisabled}
               onClick={(e) => {
                 e.preventDefault();
                 setPage(i);
@@ -63,6 +66,7 @@ const MoviesPagination: FC<IMoviesPaginationProps> = ({ moviesPerPage, page, set
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
+            isActive={isDisabled}
             onClick={(e) => {
               e.preventDefault();
               setPage((p) => Math.max(p - 1, 1));
@@ -74,6 +78,7 @@ const MoviesPagination: FC<IMoviesPaginationProps> = ({ moviesPerPage, page, set
 
         <PaginationItem>
           <PaginationNext
+            isActive={isDisabled}
             onClick={(e) => {
               e.preventDefault();
               setPage((p) => Math.min(p + 1, totalPages));

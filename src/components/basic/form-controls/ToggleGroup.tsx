@@ -5,13 +5,22 @@ import { ISortByOption } from '@/types/movies-filters';
 
 interface IToggleGroupProps {
   options: ISortByOption[];
+  value?: string | null;
+  onChange?: (value: string) => void;
 }
 
-const ToggleOptions: FC<IToggleGroupProps> = ({ options }) => {
+const ToggleOptions: FC<IToggleGroupProps> = ({ options, value, onChange }) => {
   return (
-    <ToggleGroup type="single" defaultValue="top" variant="outline" className="bg-white/4!">
-      {options.map(({ label, slug }) => (
-        <ToggleGroupItem key={slug} value={slug} aria-label={label}>
+    <ToggleGroup
+      type="single"
+      defaultValue="top"
+      variant="outline"
+      className="bg-white/4!"
+      value={value || undefined}
+      onValueChange={onChange}
+    >
+      {options.map(({ label, value }) => (
+        <ToggleGroupItem key={value} value={value} aria-label={label}>
           {label}
         </ToggleGroupItem>
       ))}

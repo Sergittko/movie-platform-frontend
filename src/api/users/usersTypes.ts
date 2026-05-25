@@ -1,5 +1,6 @@
 import { UserType } from '@/redux/user/userTypes';
-import { IResponse } from '@/types/http';
+import { IPaginationData, IResponse, IResponsePagination } from '@/types/http';
+import { ISavedUserMovie } from '@/types/movies';
 
 export interface IGetUserByIdResponse extends IResponse<{
   profile: UserType;
@@ -26,3 +27,35 @@ export interface IUploadAvatarResponse extends IResponse<{
 }> {
   message: string;
 }
+
+export interface ICreateMovieDto {
+  movieId: string;
+  title: string;
+  image: string;
+}
+
+export interface IUpdateMovieDto {
+  title?: string;
+  image?: string;
+}
+
+export interface IUserMoviesResponse extends IResponsePagination<{
+  movies: ISavedUserMovie[];
+  // eslint-disable-next-line prettier/prettier
+}> {}
+
+export interface IUserMovieResponse extends IResponsePagination<{
+  movie: ISavedUserMovie;
+  // eslint-disable-next-line prettier/prettier
+}> {}
+
+export interface IUserMovieIdsResponse extends IResponse<{
+  movieIds: string[];
+  // eslint-disable-next-line prettier/prettier
+}> {}
+
+export interface IMessageResponse {
+  message: string;
+}
+
+export type GetMoviesListDataType = { userId: string } & IPaginationData;
