@@ -5,6 +5,7 @@ import { Figtree } from 'next/font/google';
 
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import StripeProvider from '@/providers/StripeProvider';
 import { TanstackProvider } from '@/providers/TanstackProvider';
 
 export const metadata: Metadata = {
@@ -26,12 +27,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={figtree.variable} suppressHydrationWarning>
       <body>
-        <TanstackProvider>
-          <TooltipProvider>
-            {children}
-            <Toaster />
-          </TooltipProvider>
-        </TanstackProvider>
+        <StripeProvider>
+          <TanstackProvider>
+            <TooltipProvider>
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </TanstackProvider>
+        </StripeProvider>
       </body>
     </html>
   );

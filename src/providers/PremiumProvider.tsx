@@ -1,6 +1,7 @@
 import { Crown } from 'lucide-react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
+import PremiumDialog from '@/components/basic/dialogs/PremiumDialog';
 import { Button } from '@/components/ui/button';
 
 interface IPremiumProviderProps {
@@ -9,11 +10,14 @@ interface IPremiumProviderProps {
 }
 
 const PremiumProvider: FC<IPremiumProviderProps> = ({ children, text }) => {
-  const isPremium = true;
+  const [isPremiumDialogOpen, setPremiumDialogOpen] = useState<boolean>(false);
+  const isPremium = false;
+
+  const handleOpenDialog = () => setPremiumDialogOpen(true);
 
   return (
     <div className="w-full">
-      {isPremium && (
+      {!isPremium && (
         <div className="absolute inset-0 z-50 flex items-center justify-center rounded-xl bg-zinc-950/50">
           <div className="pointer-events-none absolute inset-0 -z-10 rounded-xl bg-[radial-gradient(circle,rgba(0,0,0,0.50)_0%,rgba(255,255,255,0)_70%)]" />
           <div className="w-full max-w-md p-6 text-center">
@@ -28,14 +32,19 @@ const PremiumProvider: FC<IPremiumProviderProps> = ({ children, text }) => {
               {text || 'Unlock advanced stats, charts and full movie activity tracking.'}
             </p>
 
-            <Button className="mt-4 rounded-full border border-[#39343c]/50 bg-[#39343c]/75 hover:border-[#39343c]/60 hover:bg-[#39343c]/40">
+            <Button
+              className="mt-4 rounded-full border border-[#39343c]/50 bg-[#39343c]/75 hover:border-[#39343c]/60 hover:bg-[#39343c]/40"
+              onClick={handleOpenDialog}
+            >
               Get Premium
             </Button>
           </div>
+
+          <PremiumDialog open={isPremiumDialogOpen} onOpenChange={setPremiumDialogOpen} />
         </div>
       )}
 
-      <div className={isPremium ? 'blur-[3px]' : ''}>{children}</div>
+      <div className={isPremium ? '' : 'blur-[3px]'}>{children}</div>
     </div>
   );
 };
