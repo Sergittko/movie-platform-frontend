@@ -8,6 +8,8 @@ interface IDefaultInputProps<T extends FieldValues> {
   label: string;
   control: Control<T>;
   placeholder?: string;
+  containerClassName?: string;
+  isDisabled?: boolean;
 }
 
 const DefaultInput = <T extends FieldValues>({
@@ -15,16 +17,18 @@ const DefaultInput = <T extends FieldValues>({
   control,
   label,
   placeholder,
+  containerClassName,
+  isDisabled = false,
 }: IDefaultInputProps<T>) => {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="relative">
+        <FormItem className={`relative ${containerClassName || ''}`}>
           <FormLabel className="text-white/80">{label}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} {...field} />
+            <Input placeholder={placeholder} {...field} disabled={isDisabled} />
           </FormControl>
           <FormMessage className="absolute top-16 left-0" />
         </FormItem>
