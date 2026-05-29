@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 interface IRoundedIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon: FC<React.SVGProps<SVGSVGElement>>;
   iconClassName?: string;
-  onClick: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   children?: React.ReactNode;
 }
 
