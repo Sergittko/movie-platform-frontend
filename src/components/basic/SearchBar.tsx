@@ -23,7 +23,7 @@ const SearchBar = ({ onSearch }: SearchBarProps) => {
   // if (!debouncedQuery.trim()) return;
   // }, [debouncedQuery, onSearch]);            // TODO: show search results in list
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
     setSearchByNameValue(debouncedQuery.trim());
     setPage(1);

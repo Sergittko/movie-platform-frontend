@@ -5,18 +5,19 @@ import { MoviesListsEnum, moviesListTitles } from '@/constants/movies-lists';
 interface LayoutProps {
   children: React.ReactNode;
   params: Promise<{
-    listType: MoviesListsEnum;
+    listType: string;
   }>;
 }
 
 export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {
   const { listType } = await params;
 
+  const title = moviesListTitles[listType as MoviesListsEnum] ?? 'Movies list';
+
   return {
-    title: listType ? moviesListTitles[listType] : 'Movies list',
+    title,
   };
 }
-
 const Layout = ({ children }: LayoutProps) => {
   return children;
 };
